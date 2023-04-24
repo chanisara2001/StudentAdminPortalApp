@@ -59,7 +59,7 @@ export class ViewStudentComponent implements OnInit {
             // -> new Student Functionality
             this.isNewStudent = true;
             this.header = 'Add New Student';
-            this.setImage();
+            // this.setImage();
           } else {
             // -> Existing Student Functionality
             this.isNewStudent = false;
@@ -69,9 +69,11 @@ export class ViewStudentComponent implements OnInit {
                 (successResponse) => {
                   this.student = successResponse;
                   this.setImage();
+                  // console.log(successResponse);
                 },
                 (errorResponse) => {
                   this.setImage();
+                  // console.log(errorResponse);
                 }
               );
           }
@@ -93,13 +95,14 @@ export class ViewStudentComponent implements OnInit {
         .subscribe(
           (successResponse): void => {
             // Show a notification
+            this.student = successResponse;
             this.snackbar.open('Student updated successfully', undefined, {
               duration: 2000
             });
           },
           (errorResponse) => {
             // Log it
-            console.log(errorResponse);
+            // console.log(errorResponse);
           }
         );
     }
@@ -119,6 +122,7 @@ export class ViewStudentComponent implements OnInit {
         },
         (errorResponse) => {
           // Log
+          console.log(errorResponse);
         }
       );
   }
@@ -136,6 +140,9 @@ export class ViewStudentComponent implements OnInit {
             setTimeout(() => {
               this.router.navigateByUrl(`students/${successResponse.id}`);
             }, 2000);
+
+            // Display a default
+            this.displayProfileImageUrl = '/assets/user.png';
 
           },
           (errorResponse) => {
